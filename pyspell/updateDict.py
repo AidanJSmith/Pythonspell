@@ -1,19 +1,19 @@
 import os
-from bktree import *
+from pyspell.bktree import makeSearch,Node,setDictionary,fillTree
 import pickle
 
 
-def repickle(newDictpath="./data/wordlist.txt"): #Deletes the current cached BKtree & rewrites it with the dict.
-    if os.path.exists("./data/bktree.pickle"):
-        os.remove("./data/bktree.pickle")
+def repickle(newDictpath,treename): #Deletes the current cached BKtree & rewrites it with the dict.
+    if os.path.exists(treename):
+        os.remove(treename)
     with open(newDictpath,'r') as wordlist:
             dictionary=list(filter(lambda x: len(x)>1,map(lambda x: x.strip(),wordlist.readlines())));
     root=Node()
     fillTree(root,dictionary)
-    with open("./data/bktree.pickle", 'wb') as pickle_handle:
+    with open(treename, 'wb') as pickle_handle:
             pickle.dump(root, pickle_handle)
             
-def addWord(word,priority=-1,dictPath="./data/wordlist.txt",doPickle=True):
+def addWord(word,dictPath,priority=-1):
     file = open(dictPath, "r")
     content=file.readlines();
     file.close()
@@ -42,6 +42,4 @@ def addWord(word,priority=-1,dictPath="./data/wordlist.txt",doPickle=True):
     f = open(dictPath, "w")
     f.writelines(content)
     f.close()
-    if doPickle:
-        repickle(dictPath);
     

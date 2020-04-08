@@ -1,6 +1,6 @@
 from setuptools import setup
 setup(  name='pyspell',
-        version='0.4',
+        version='0.5',
         description='A simple python spellchecker built on BK Trees and Damerau–Levenshtein distance',
         url='https://github.com/AidanJSmith',
         author='Aidan Smith',

@@ -1,1 +1,1 @@
-__all__ = ["bktree", "checker", "updateDict"]
+__all__ = ["pyspell.bktree", "pyspell.checker", "pyspell.updateDict"]
