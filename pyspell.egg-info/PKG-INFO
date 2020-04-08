@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: pyspell
+Version: 0.2
+Summary: A simple python spellchecker built on BK Trees and Damerau–Levenshtein distance
+Home-page: https://github.com/AidanJSmith
+Author: Aidan Smith
+Author-email: 100023755@mvla.net
+License: MIT
+Description: UNKNOWN
+Platform: UNKNOWN

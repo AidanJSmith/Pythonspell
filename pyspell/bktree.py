@@ -2,7 +2,7 @@ import os
 import pickle
 
 TOLERANCE=2; #Increase this number to get a wider degree of results. Naturally, it's slower as well. This code is specialized around 2, due to the huge wordlist.
-pickle_filepath = "../data/bktree.pickle" #This makes redundant runs slightly faster
+pickle_filepath = "./data/bktree.pickle" #This makes redundant runs slightly faster
 
 TOLERANCE=2; #Increase this number to get a wider degree of results. Naturally, it's slower as well. This code is specialized around 2, due to the huge wordlist.
 class Node: # Node of the BK tree: contains a dict of children of key distance from root word.
@@ -98,7 +98,7 @@ def makeSearch(word,returnNum=1,returnType="words",repeat=False): #The actual se
             else:
                 TOLERANCE=2
                 return None;
-with open("../data/wordlist.txt",'r') as wordlist:
+with open("./data/wordlist.txt",'r') as wordlist:
         dictionary=list(filter(lambda x: len(x)>1,map(lambda x: x.strip(),wordlist.readlines())));
 if not os.path.exists(pickle_filepath):
     root=Node("")

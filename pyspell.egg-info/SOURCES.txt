@@ -1,0 +1,11 @@
+README.md
+setup.py
+pyspell/__init__.py
+pyspell/bktree.py
+pyspell/checker.py
+pyspell/updateDict.py
+pyspell.egg-info/PKG-INFO
+pyspell.egg-info/SOURCES.txt
+pyspell.egg-info/dependency_links.txt
+pyspell.egg-info/not-zip-safe
+pyspell.egg-info/top_level.txt
