@@ -1,4 +1,5 @@
 README.md
+README.rst
 setup.py
 pyspell/__init__.py
 pyspell/bktree.py

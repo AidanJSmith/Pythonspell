@@ -2,6 +2,13 @@
 ## Description
 This package is intended as a lightweight, efficient, and customizable spelling corrector. By using the Damerau-Levenshtein distance and a cached BK tree, the code narrows down possible typos and ranks them based on their ordering in an dictionary.txt file. 
 
+```shell
+pip install pythonspell
+```
+
+Get at PyPi:
+https://pypi.org/project/pythonspell/0.7/
+
 ## Usage
 ### Checker
 The Checker class is the root of all of the spellchecking, and should be used under most circumstances. To load the cached BK tree (or generate a new one, should the need present itself), call the load method.
