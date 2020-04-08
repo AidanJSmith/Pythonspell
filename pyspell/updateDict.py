@@ -10,33 +10,38 @@ def repickle(newDictpath="./data/wordlist.txt"): #Deletes the current cached BKt
             dictionary=list(filter(lambda x: len(x)>1,map(lambda x: x.strip(),wordlist.readlines())));
     root=Node()
     fillTree(root,dictionary)
-    with open(newDictpath, 'wb') as pickle_handle:
+    with open("./data/bktree.pickle", 'wb') as pickle_handle:
             pickle.dump(root, pickle_handle)
-def addWord(word,priority=-1,dictPath="./data/wordlist.txt",repickle=True):
-    file = open("dictPath", "r")
+            
+def addWord(word,priority=-1,dictPath="./data/wordlist.txt",doPickle=True):
+    file = open(dictPath, "r")
     content=file.readlines();
     file.close()
+    print(word+"\n" in content)
+    print(content[3],word)
     if (type(word)==list):
         for item in word:
-            if(priority<0):
-                content.insert(len(content),item)
-            content.insert(priority,item)
+            if item+"\n" not in content:
+                if(priority<0):
+                    content.insert(len(content),item+"\n")
+                content.insert(priority,item)
     elif type(word)==dict:
         for key in word.keys():
-            if(type(key.location)==int):
-                content.insert(key.location,key)
-            elif(priority<0):
-                content.insert(len(content),key)
-            else:
-                content.insert(priority,key)    
+            if key+"\n" not in content:
+                if(type(key.location)==int):
+                    content.insert(key.location,key+"\n")
+                elif(priority<0):
+                    content.insert(len(content),key+"\n")
+                else:
+                    content.insert(priority,key)    
     elif type(word)==str:
-         if(priority<0):
-                content.insert(len(content),word)
-         content.insert(priority,word)
+        if word+"\n" not in content:
+            if(priority<0):
+                    content.insert(len(content),word+"\n")
+            content.insert(priority,word+"\n")
     f = open(dictPath, "w")
-    contents = "".join(contents)
-    f.write(contents)
+    f.writelines(content)
     f.close()
-    if repickle:
+    if doPickle:
         repickle(dictPath);
     

@@ -1,9 +1,4 @@
 import os
-import pickle
-
-TOLERANCE=2; #Increase this number to get a wider degree of results. Naturally, it's slower as well. This code is specialized around 2, due to the huge wordlist.
-pickle_filepath = "./data/bktree.pickle" #This makes redundant runs slightly faster
-
 TOLERANCE=2; #Increase this number to get a wider degree of results. Naturally, it's slower as well. This code is specialized around 2, due to the huge wordlist.
 class Node: # Node of the BK tree: contains a dict of children of key distance from root word.
     def __init__(self,data="",diff=0):
@@ -54,6 +49,8 @@ def fillTree(root,dictionary): #The initial function that establishes a data roo
         else:
             placeInTree(root,word,getDistance(word, root.data))
     #print("Loaded.")
+def setDictionary(newDict):
+    dictionary=newDict;
 def matchWord(root,word): #Navigates the BK tree
     matches=[]
     if (root.data == ""):
@@ -71,15 +68,22 @@ def matchWord(root,word): #Navigates the BK tree
                 matches.append(newwords)
             start+=1
     return matches;
-def makeSearch(word,returnNum=1,returnType="words",repeat=False): #The actual search function
+def makeSearch(word,root,dictionary,returnNum=1,returnType="words",repeat=True): #The actual search function
     word=word.lower();
     sortedOptions=matchWord(root,word) #all the possible words
-    rankings=map(lambda x: dictionary.index(x),sortedOptions) #word ranks based on wordlist.txt
-    pairing=sorted(zip(sortedOptions,rankings), key=lambda x: x[1]); #combines the two efficiently and sorts them
+    try:
+        rankings=map(lambda x: dictionary.index(x),sortedOptions) #word ranks based on wordlist.txt
+        pairing=sorted(zip(sortedOptions,rankings), key=lambda x: x[1]); #combines the two efficiently and sorts them
+    except:
+        print("ERR: Wordlist.txt has been modified. Run repickle() on your dict to fix this.")
     if returnType=="pairings":
-        return pairing
+        if(returnNum>len(pairing) or returnNum==0):
+            return pairing
+        return pairing[:returnNum]
     elif returnType=="rankings":
-        return rankings
+         if(returnNum>len(rankings) or returnNum==0 ):
+                return rankings
+         return rankings[:returnNum]
     elif returnType=="words":
         global TOLERANCE
         if word in sortedOptions:
@@ -87,29 +91,18 @@ def makeSearch(word,returnNum=1,returnType="words",repeat=False): #The actual se
             return word;
         else:
             if (pairing!=[]): #Attempt to find a word that fits with tolerance 2, but sacrifice speed and go to tolerance 3 if there's nothing.
+                if(returnNum==0):
+                    return pairing;
                 if(len(pairing)>=returnNum):
+                    if(returnNum==1):
+                        return pairing[0][0];
                     return [pairing[i][0] for i in range(0,returnNum)]
                 else:
                     return [pairing[i][0] for i in range(0,len(pairing))]                 
                 TOLERANCE=2
             elif TOLERANCE==2 and repeat==True:
                 TOLERANCE=3;
-                makeSearch(word);
+                return makeSearch(word,root,dictionary,returnNum,returnType,repeat);
             else:
                 TOLERANCE=2
                 return None;
-with open("./data/wordlist.txt",'r') as wordlist:
-        dictionary=list(filter(lambda x: len(x)>1,map(lambda x: x.strip(),wordlist.readlines())));
-if not os.path.exists(pickle_filepath):
-    root=Node("")
-    fillTree(root,dictionary)
-    # Read data set from disk
-    with open(pickle_filepath, 'wb') as pickle_handle:
-        pickle.dump(root, pickle_handle)
-else:
-    file = open(pickle_filepath, 'rb')
-    root = pickle.load(file)
-    file.close()
-        
-while True:
-    makeSearch(input("Word:"))
