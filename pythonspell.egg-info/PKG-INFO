@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: pythonspell
-Version: 0.7
+Version: 1.0
 Summary: A simple python spellchecker built on BK Trees and Damerau Levenshtein distance
 Home-page: https://github.com/AidanJSmith
 Author: Aidan Smith

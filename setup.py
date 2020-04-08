@@ -2,7 +2,7 @@ from setuptools import setup
 with open('README.rst') as f:
     long_description = f.read()
 setup(name='pythonspell',
-    version='0.7',
+    version='1.00',
     description='A simple python spellchecker built on BK Trees and Damerau Levenshtein distance',
     url='https://github.com/AidanJSmith',
     long_description = long_description,
