@@ -1,5 +1,5 @@
 import os
-TOLERANCE=2; #Increase this number to get a wider degree of results. Naturally, it's slower as well. This code is specialized around 2, due to the huge wordlist.
+TOLERANCE=1; #Increase this number to get a wider degree of results. Naturally, it's slower as well. This code is specialized around 2, due to the huge wordlist.
 class Node: # Node of the BK tree: contains a dict of children of key distance from root word.
     def __init__(self,data="",diff=0):
         self.data=data;
@@ -68,14 +68,17 @@ def matchWord(root,word): #Navigates the BK tree
                 matches.append(newwords)
             start+=1
     return matches;
-def makeSearch(word,root,dictionary,returnNum=1,returnType="words",repeat=True): #The actual search function
+def makeSearch(word,root,dictionary,returnNum=1,returnType="words",repeat=True,forcePrecision=0): #The actual search function
     word=word.lower();
+    global TOLERANCE
+    if (forcePrecision!=0):
+        TOLERANCE=forcePrecision;
     sortedOptions=matchWord(root,word) #all the possible words
     try:
         rankings=map(lambda x: dictionary.index(x),sortedOptions) #word ranks based on wordlist.txt
         pairing=sorted(zip(sortedOptions,rankings), key=lambda x: x[1]); #combines the two efficiently and sorts them
     except:
-        print("ERR: Wordlist.txt has been modified. Run repickle() on your dict to fix this.")
+        print("ERR: Wordlist.txt has been modified. Run repickle(dictionary_path,cachedTreeName) on your dict to fix this.")
     if returnType=="pairings":
         if(returnNum>len(pairing) or returnNum==0):
             return pairing
@@ -85,14 +88,13 @@ def makeSearch(word,root,dictionary,returnNum=1,returnType="words",repeat=True):
                 return rankings
          return rankings[:returnNum]
     elif returnType=="words":
-        global TOLERANCE
         if word in sortedOptions:
             #If the word is already possible, don't bother returning other options
             return word;
         else:
             if (pairing!=[]): #Attempt to find a word that fits with tolerance 2, but sacrifice speed and go to tolerance 3 if there's nothing.
                 if(returnNum==0):
-                    return pairing;
+                    return sortedOptions;
                 if(len(pairing)>=returnNum):
                     if(returnNum==1):
                         return pairing[0][0];

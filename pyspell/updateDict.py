@@ -13,7 +13,7 @@ def repickle(newDictpath,treename): #Deletes the current cached BKtree & rewrite
     with open(treename, 'wb') as pickle_handle:
             pickle.dump(root, pickle_handle)
             
-def addWord(word,dictPath,priority=-1):
+def addWord(word,dictPath,priority=-1): #adds a word, list, or dict to the given dictionary.
     file = open(dictPath, "r")
     content=file.readlines();
     file.close()
