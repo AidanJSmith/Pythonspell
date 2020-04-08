@@ -13,7 +13,7 @@ class Checker:
         file = open(self.treename, 'rb')
         self.root = pickle.load(file)
         file.close()
-    def check(self,word,returnNum=1,returnType="words",repeat=False):
+    def check(self,word,returnNum=1,returnType="words",repeat=True):
         return makeSearch(word,self.root,self.dictionary,returnNum,returnType,repeat)
     def updateDict(self,word,priority=-1,pickle=True):
         addWord(word,priority,self.dictionaryPath,pickle);

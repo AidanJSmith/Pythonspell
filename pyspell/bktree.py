@@ -100,8 +100,8 @@ def makeSearch(word,root,dictionary,returnNum=1,returnType="words",repeat=True):
                 else:
                     return [pairing[i][0] for i in range(0,len(pairing))]                 
                 TOLERANCE=2
-            elif TOLERANCE==2 and repeat==True:
-                TOLERANCE=3;
+            elif repeat==True:
+                TOLERANCE+=1;
                 return makeSearch(word,root,dictionary,returnNum,returnType,repeat);
             else:
                 TOLERANCE=2
