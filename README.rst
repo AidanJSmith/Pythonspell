@@ -20,7 +20,10 @@ used under most circumstances. To load the cached BK tree (or generate a
 new one, should the need present itself), call the load method. It takes
 two paramters, a wordlist and a pickling location (defaults to
 bktree.pickle in the root directory). If there is no cache present at
-the given location, it will generate one. ### Methods:
+the given location, it will generate one. 
+
+Methods:
+-----
 
 .. code:: python
 

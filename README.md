@@ -1,4 +1,6 @@
 # pyspell
+[![Downloads](https://static.pepy.tech/badge/pythonspell)](https://pepy.tech/project/pythonspell)
+
 ## Description
 This package is intended as a lightweight, efficient, and customizable spelling corrector. By using the Damerau-Levenshtein distance and a cached BK tree, the code narrows down possible typos and ranks them based on their ordering in an dictionary.txt file. 
 
@@ -7,7 +9,7 @@ pip install pythonspell
 ```
 
 Get at PyPi:
-https://pypi.org/project/pythonspell/0.7/
+https://pypi.org/project/pythonspell
 
 ## Usage
 ### Checker
