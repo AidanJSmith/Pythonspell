@@ -4,6 +4,9 @@ import pickle
 
 
 def repickle(newDictpath,treename): #Deletes the current cached BKtree & rewrites it with the dict.
+    """   
+    Deletes the current cached BKtree & rewrites it with the dict newDictpath (path to txt file), treename name of pickled file.
+    """
     if os.path.exists(treename):
         os.remove(treename)
     with open(newDictpath,'r') as wordlist:
@@ -14,6 +17,9 @@ def repickle(newDictpath,treename): #Deletes the current cached BKtree & rewrite
             pickle.dump(root, pickle_handle)
             
 def addWord(word,dictPath,priority=-1): #adds a word, list, or dict to the given dictionary.
+    """   
+    Adds a word, list, or dict to the given dictionary. Word, dictPath = path to dictionary, priority = placement in list. 
+    """
     file = open(dictPath, "r")
     content=file.readlines();
     file.close()
